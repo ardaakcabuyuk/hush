@@ -1,0 +1,17 @@
+{
+  "name": "hush",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "hush": "npx concurrently --names server,browser,claude \"node server.mjs\" \"sleep 1 && open http://localhost:3000\" \"sleep 1 && claude\""
+  },
+  "dependencies": {
+    "chokidar": "^4.0.0",
+    "express": "^4.21.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}

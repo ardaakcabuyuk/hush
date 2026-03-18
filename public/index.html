@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HUSH</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/@strudel/repl@latest"></script>
+</head>
+<body>
+  <header>HUSH</header>
+  <main>
+    <strudel-editor id="editor">
+<!-- default pattern loaded from pattern.mjs via WebSocket -->
+s("bd sd hh cp").bank("RolandTR808")
+    </strudel-editor>
+  </main>
+  <div id="status">Connecting...</div>
+
+  <script>
+    const editor = document.getElementById('editor');
+    const status = document.getElementById('status');
+
+    function connect() {
+      const ws = new WebSocket(`ws://${location.host}`);
+
+      ws.onopen = () => {
+        status.textContent = 'Connected';
+        status.classList.add('connected');
+      };
+
+      ws.onmessage = (event) => {
+        const msg = JSON.parse(event.data);
+        if (msg.type === 'code') {
+          editor.setCode(msg.code);
+          editor.evaluate();
+          status.textContent = 'Updated ' + new Date().toLocaleTimeString();
+        }
+      };
+
+      ws.onclose = () => {
+        status.textContent = 'Disconnected — reconnecting...';
+        status.classList.remove('connected');
+        setTimeout(connect, 2000);
+      };
+
+      ws.onerror = () => ws.close();
+    }
+
+    connect();
+  </script>
+</body>
+</html>

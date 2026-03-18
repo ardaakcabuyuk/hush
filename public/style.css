@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0a0a0a;
+  color: #e0e0e0;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  text-align: center;
+  padding: 12px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: #888;
+  border-bottom: 1px solid #222;
+}
+
+main {
+  flex: 1;
+  overflow: hidden;
+}
+
+strudel-editor {
+  display: block;
+  height: 100%;
+}
+
+#status {
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  color: #666;
+  border-top: 1px solid #222;
+  text-align: right;
+}
+
+#status.connected {
+  color: #4a4;
+}
